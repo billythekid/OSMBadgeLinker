@@ -1,0 +1,15 @@
+{
+  "name": "OSM Badge Linker",
+  "version": "0.0.1",
+  "manifest_version": 2,
+  "description": "Provides links from OSM's (online scout manager) badge stock page to the badge purchase page on the Glasgow Scouts website.",
+  "permissions": ["activeTab", "https://www.onlinescoutmanager.co.uk/*"],
+  "content_scripts": [{
+    "matches": ["https://www.onlinescoutmanager.co.uk/*"],
+    "js": ["osm.js"],
+    "css": ["osm.css"]
+  }],
+  "icons": {
+    "128": "icon.png"
+  }
+}
