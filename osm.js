@@ -1,6 +1,6 @@
-MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
+MutationObserver = window.MutationObserver;
 
-let linkBaseUrl = "https://www.glasgowscoutshop.com/";
+const linkBaseUrl = "https://www.glasgowscoutshop.com/";
 
 
 let badgeUrls = [
@@ -260,7 +260,7 @@ function findBadgeByKeywords(badgeName) {
   return response;
 }
 
-var observer = new MutationObserver(function (mutations, observer) {
+let observer = new MutationObserver(function (mutations) {
   // fired when a mutation occurs
 
   mutations.forEach((mutation) => {
@@ -290,7 +290,7 @@ var observer = new MutationObserver(function (mutations, observer) {
       if (links) {
         links.forEach((link) => {
           let badgeName = link.querySelector('span.badge').innerText.toLowerCase();
-          let column = link.querySelector('span.column').innerText.toLowerCase();
+          // let column = link.querySelector('span.column').innerText.toLowerCase();
           let badges = findBadgeByKeywords(badgeName);
           badges.forEach((badge) => {
             let linkUrl = linkBaseUrl + badge.url;
