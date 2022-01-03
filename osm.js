@@ -2,251 +2,251 @@ MutationObserver = window.MutationObserver;
 
 const linkBaseUrl = "https://www.glasgowscoutshop.com/";
 
-
+// looks like the website has changed recently and can be URL hacked by a double underscore and the entry ID
 let badgeUrls = [
   {
     name: "chief scout's bronze",
-    url: "1023/products/beaver-chief-scouts-bronze-award-badge.aspx"
+    url: "__1023"
   },
   {
     name: "adventure",
-    url: "4028/products/beaver-my-adventure-challenge-award-badge.aspx"
+    url: "__4028"
   },
   {
     name: "outdoors",
-    url: "3889/products/beaver-my-outdoor-challenge-award-badge.aspx"
+    url: "__3889"
   },
   {
     name: "personal",
-    url: "3951/products/beaver-personal-challenge-award-badge.aspx"
+    url: "__3951"
   },
   {
     name: "skills",
-    url: "3949/products/beaver-my-skills-challenge-award-badge.aspx"
+    url: "__3949"
   },
   {
     name: "teamwork",
-    url: "4021/products/beaver-my-teamwork-challenge-award-badge.aspx"
+    url: "__4021"
   },
   {
     name: "world",
-    url: "4000/products/beaver-my-world-challenge-award-badge.aspx"
+    url: "__4000"
   },
   {
     name: "animal friend",
-    url: "4020/products/beaver-scout-animal-friend-pets-at-home.aspx"
+    url: "__4020"
   },
   {
     name: "book reader",
-    url: "4590/products/beaver-book-reader-badge.aspx"
+    url: "__4590"
   },
   {
     name: "builder",
-    url: "4584/products/beaver-builder-badge.aspx"
+    url: "__4584"
   },
   {
     name: "camp craft",
-    url: "3735/products/beaver-scout-camp-craft-badge.aspx"
+    url: "__3735"
   },
   {
     name: "collector",
-    url: "3912/products/beaver-scout-collector-badge.aspx"
+    url: "__3912"
   },
   {
     name: "communicator",
-    url: "1013/products/beaver-scout-communicator-badge.aspx"
+    url: "__1013"
   },
   {
     name: "cook",
-    url: "4040/products/beaver-scout-cook-badge.aspx"
+    url: "__4040"
   },
   {
     name: "creative",
-    url: "4036/products/beaver-scout-creative.aspx"
+    url: "__4036"
   },
   {
     name: "cyclist",
-    url: "3852/products/beaver-scout-cyclist-badge.aspx"
+    url: "__3852"
   },
   {
     name: "disability awareness",
-    url: "1030/products/beaver-scout-disability-awareness-badge.aspx"
+    url: "__1030"
   },
   {
     name: "experiment",
-    url: "4039/products/beaver-scout-experiment.aspx"
+    url: "__4039"
   },
   {
     name: "explore",
-    url: "4030/products/beaver-scout-explore.aspx"
+    url: "__4030"
   },
   {
     name: "faith",
-    url: "3950/products/beaver-scout-faith.aspx"
+    url: "__3950"
   },
   {
     name: "gardener",
-    url: "4038/products/beaver-scout-gardener.aspx"
+    url: "__4038"
   },
   {
     name: "global issues",
-    url: "3748/products/beaver-scout-global-issues-badge.aspx"
+    url: "__3748"
   },
   {
     name: "health and fitness",
-    url: "3997/products/beaver-scout-health-and-fitness-badge.aspx"
+    url: "__3997"
   },
   {
     name: "hobbies",
-    url: "3853/products/beaver-scout-hobbies-badge.aspx"
+    url: "__3853"
   },
   {
     name: "international",
-    url: "4019/products/beaver-scout-international-badge.aspx"
+    url: "__4019"
   },
   {
     name: "photographer",
-    url: "4016/products/beaver-scout-photographer-badge.aspx"
+    url: "__4016"
   },
   {
     name: "safety",
-    url: "3999/products/beaver-scout-safety-badge.aspx"
+    url: "__3999"
   },
   {
     name: "space",
-    url: "4022/products/beaver-scout-space-badge.aspx"
+    url: "__4022"
   },
   {
     name: "sports",
-    url: "4017/products/beaver-scout-sports-badge.aspx"
+    url: "__4017"
   },
   {
     name: "air activities lvl 1",
-    url: "3946/products/air-activities-stage-1-badge--heathrow.aspx"
+    url: "__3946"
   },
   {
     name: "community impact lvl 1",
-    url: "3833/products/community-impact-stage-1-badge.aspx"
+    url: "__3833"
   },
   {
     name: "digital citizen lvl 1",
-    url: "3841/products/digital-citizen-stage-1-badge.aspx"
+    url: "__3841"
   },
   {
     name: "digital maker lvl 1",
-    url: "3823/products/digital-maker-stage-1-badge.aspx"
+    url: "__3823"
   },
   {
     name: "emergency aid lvl 1",
-    url: "920/products/activity-emergency-aid-stage-1.aspx"
+    url: "__920"
   },
   {
     name: "emergency aid lvl 2",
-    url: "922/products/activity-emergency-aid-stage-2.aspx"
+    url: "__922"
   },
   {
     name: "hikes lvl 1",
-    url: "948/products/hikes-away-badge-1-stage-go-outdoors.aspx"
+    url: "__948"
   },
   {
     name: "hikes lvl 2",
-    url: "3847/products/hikes-away-2-badge-stage-go-outdoors.aspx"
+    url: "__3847"
   },
   {
     name: "hikes lvl 5",
-    url: "3920/products/hikes-away-badge-5-stage-go-outdoors.aspx"
+    url: "__3920"
   },
   {
     name: "hikes lvl 10",
-    url: "3709/products/hikes-away-badge-10-stage-go-outdoors.aspx"
+    url: "__3709"
   },
   {
     name: "hikes lvl 15",
-    url: "3739/products/hikes-away-15-badge-stage-go-outdoors.aspx"
+    url: "__3739"
   },
   {
     name: "musician lvl 1",
-    url: "3983/products/activity-musician-stage-1.aspx"
+    url: "__3983"
   },
   {
     name: "nautical skills lvl 1",
-    url: "1022/products/nautical-skills-stage-1-badge.aspx"
+    url: "__1022"
   },
   {
     name: "navigator lvl 1",
-    url: "3888/products/navigator-stage-1-badge.aspx"
+    url: "__3888"
   },
   {
     name: "nights away lvl 1",
-    url: "4045/products/activity-nights-away-badge-stage-1-go-outdoors.aspx"
+    url: "__4045"
   },
   {
     name: "nights away lvl 2",
-    url: "4001/products/activity-nights-away-stage-2-badge-go-outdoors.aspx"
+    url: "__4001"
   },
   {
     name: "nights away lvl 3",
-    url: "3848/products/activity-nights-away-stage-3-badge-go-outdoors.aspx"
+    url: "__3848"
   },
   {
     name: "nights away lvl 4",
-    url: "3922/products/activity-nights-away-stage-4-badge-go-outdoors.aspx"
+    url: "__3922"
   },
   {
     name: "nights away lvl 5",
-    url: "4032/products/activity-nights-away-badge-stage-5-go-outdoors.aspx"
+    url: "__4032"
   },
   {
     name: "nights away lvl 10",
-    url: "4044/products/activity-nights-away-badge-stage-10-go-outdoors.aspx"
+    url: "__4044"
   },
   {
     name: "paddle sports lvl 1",
-    url: "3734/products/paddle-sports-stage-1-badge.aspx"
+    url: "__3734"
   },
   {
     name: "sailing lvl 1",
-    url: "3968/products/sailing-stage-1-badge.aspx"
+    url: "__3968"
   },
   {
     name: "snowsports lvl 1",
-    url: "4586/products/snowsports-stage-1-badge.aspx"
+    url: "__4586"
   },
   {
     name: "swimmer lvl 1",
-    url: "4037/products/activity-swimmer-stage-1--sta.aspx"
+    url: "__4037"
   },
   {
     name: "swimmer lvl 2",
-    url: "4048/products/activity-swimmer-stage-2--sta.aspx"
+    url: "__4048"
   },
   {
     name: "swimmer lvl 3",
-    url: "3872/products/activity-swimmer-stage-3--sta.aspx"
+    url: "__3872"
   },
   {
     name: "time on the water lvl 1",
-    url: "4018/products/time-on-water-stage-1-badge--royal-navy.aspx"
+    url: "__4018"
   },
   {
     name: "membership",
-    url: "956/products/world-membership-badge.aspx"
+    url: "__956"
   },
   {
     name: "moving on",
-    url: "4002/products/beaver-moving-on-award.aspx"
+    url: "__4002"
   },
   {
     name: "joining in lvl 1",
-    url: "939/products/joining-in-award-badge-1.aspx"
+    url: "__939"
   },
   {
     name: "joining in lvl 2",
-    url: "938/products/joining-in-award-badge-2.aspx"
+    url: "__938"
   },
   {
     name: "joining in lvl 3",
-    url: "4003/products/joining-in-award-badge-3.aspx"
+    url: "__4003"
   },
 ];
 
