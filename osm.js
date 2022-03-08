@@ -265,41 +265,24 @@ let observer = new MutationObserver(function (mutations) {
 
   mutations.forEach((mutation) => {
 
-    let stockRequiredRows = mutation.target.querySelectorAll('.dgrid-row-outofstock');
-    if (stockRequiredRows) {
-      stockRequiredRows.forEach((row) => {
-        let badgeElementDesktop = row.querySelector('.field-name');
-        let badgeElementMobile = row.querySelector('.summary-wrapper .name');
-        let badgeName = badgeElementDesktop.innerText.toLowerCase();
-        let badges = findBadgeByKeywords(badgeName);
-        if (row.querySelector('.buy-now-link') === null) {
-          badges.forEach((badge) => {
-            let linkUrl = linkBaseUrl + badge.url;
-            badgeElementDesktop.insertAdjacentHTML("beforeend", "<a target='_blank' href='" + linkUrl + "' class='buy-now-link'>Buy Now!</a>");
-            badgeElementMobile.insertAdjacentHTML("beforeend", "<a target='_blank' href='" + linkUrl + "' class='buy-now-link'>Buy Now!</a>");
-          });
-        }
-      });
-
-    }
-
-
-    if (mutation.target.querySelector(".activity-badge-links")) {
-      let links = mutation.target.querySelectorAll('.linked-badges li .inner .description');
-
-      if (links) {
-        links.forEach((link) => {
-          let badgeName = link.querySelector('span.badge').innerText.toLowerCase();
-          // let column = link.querySelector('span.column').innerText.toLowerCase();
+    let stockRequiredRows = Array.from(mutation.target.querySelectorAll('[col-id="buy"]')).filter(cell => cell.innerText !== '0');
+    if (stockRequiredRows.length > 0) {
+      if (stockRequiredRows) {
+        stockRequiredRows.forEach((cell) => {
+          let badgeNameCell = cell.parentNode.querySelector('[col-id="name"]');
+          let badgeName = badgeNameCell.innerText.toLowerCase();
           let badges = findBadgeByKeywords(badgeName);
-          badges.forEach((badge) => {
-            let linkUrl = linkBaseUrl + badge.url;
-            link.insertAdjacentHTML("beforeend", "<a target='_blank' href='" + linkUrl + "' class='buy-now-link'>Buy Now!</a>");
-          });
+          if (cell.querySelector('.buy-now-link') === null) {
+            badges.forEach((badge) => {
+              let linkUrl = linkBaseUrl + badge.url;
+              cell.insertAdjacentHTML("beforeend", "<a target='_blank' href='" + linkUrl + "' class='buy-now-link'>Buy Now!</a>");
+            });
+          }
         });
 
       }
     }
+
   });
 
 });
